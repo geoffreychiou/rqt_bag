@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="bag" default="" doc="bag file to load"/>
+  <node name="bolles_saver_service" pkg="saver_service" type="saver_service" output="screen" required="true"/>
   <node name="rqt_bag" pkg="rqt_bag" type="rqt_bag"
     args="$(arg bag)" output="screen"/>
 </launch>

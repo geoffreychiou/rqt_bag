@@ -39,7 +39,7 @@ import rospkg
 from python_qt_binding import loadUi
 from python_qt_binding.QtCore import Qt, qWarning, Signal
 from python_qt_binding.QtGui import QIcon
-from python_qt_binding.QtWidgets import QFileDialog, QGraphicsView, QWidget
+from python_qt_binding.QtWidgets import QFileDialog, QGraphicsView, QWidget, QMessageBox
 
 import rosbag
 from rqt_bag import bag_helper
@@ -336,11 +336,16 @@ class BagWidget(QWidget):
                     self.cloud_topic_combo_box.addItem(topic_name)
 
     def _handle_refresh_clicked(self):
-        rospy.loginfo("Refresh button pressed")
         self.update_topic_combo_boxes()
 
     def _handle_save_test_data_clicked(self):
         rospy.loginfo("Save test data button pressed")
+        if not self.location_input.text():
+            rospy.logerr("Location Input is Empty")
+            QMessageBox.warning(self, "Location Input Empty", "Please type a location")
+            return
+
+        location_text = self.location_input.text()
 
     def _set_status_text(self, text):
         if text:

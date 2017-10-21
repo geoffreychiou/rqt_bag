@@ -92,6 +92,8 @@ class BagWidget(QWidget):
         self.record_button.setIcon(QIcon.fromTheme('media-record'))
         self.load_button.setIcon(QIcon.fromTheme('document-open'))
         self.save_button.setIcon(QIcon.fromTheme('document-save'))
+        self.refresh_button.setIcon(QIcon.fromTheme('view-refresh'))
+        self.save_test_data_button.setIcon(QIcon.fromTheme('document-save'))
 
         self.play_button.clicked[bool].connect(self._handle_play_clicked)
         self.thumbs_button.clicked[bool].connect(self._handle_thumbs_clicked)
@@ -107,6 +109,8 @@ class BagWidget(QWidget):
         self.record_button.clicked[bool].connect(self._handle_record_clicked)
         self.load_button.clicked[bool].connect(self._handle_load_clicked)
         self.save_button.clicked[bool].connect(self._handle_save_clicked)
+        self.refresh_button.clicked[bool].connect(self._handle_refresh_clicked)
+        self.save_test_data_button.clicked[bool].connect(self._handle_save_test_data_clicked)
         self.graphics_view.mousePressEvent = self._timeline.on_mouse_down
         self.graphics_view.mouseReleaseEvent = self._timeline.on_mouse_up
         self.graphics_view.mouseMoveEvent = self._timeline.on_mouse_move
@@ -264,7 +268,8 @@ class BagWidget(QWidget):
             self.load_bag(filename[0])
 
     def load_bag(self, filename):
-        qInfo("Loading '%s'..." % filename)
+        # qInfo("Loading '%s'..." % filename)
+        rospy.loginfo("Loading '%s' ..." % filename)
 
         # QProgressBar can EITHER: show text or show a bouncing loading bar,
         #  but apparently the text is hidden when the bounding loading bar is
@@ -292,7 +297,8 @@ class BagWidget(QWidget):
             self.save_button.setEnabled(True)
             self.record_button.setEnabled(False)
             self._timeline.add_bag(bag)
-            qInfo("Done loading '%s'" % filename )
+            # qInfo("Done loading '%s'" % filename )
+            rospy.loginfo("Done loading '%s'" % filename)
             # put the progress bar back the way it was
             self.set_status_text.emit("")
         except rosbag.ROSBagException as e:
@@ -308,6 +314,15 @@ class BagWidget(QWidget):
         filename = QFileDialog.getSaveFileName(self, self.tr('Save selected region to file...'), '.', self.tr('Bag files {.bag} (*.bag)'))
         if filename[0] != '':
             self._timeline.copy_region_to_bag(filename[0])
+
+    def update_topic_combo_box(self):
+        print("hello world")
+
+    def _handle_refresh_clicked(self):
+        rospy.loginfo("Refresh button pressed")
+
+    def _handle_save_test_data_clicked(self):
+        rospy.loginfo("Save test data button pressed")
 
     def _set_status_text(self, text):
         if text:

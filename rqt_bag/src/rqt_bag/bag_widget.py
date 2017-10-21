@@ -341,11 +341,21 @@ class BagWidget(QWidget):
     def _handle_save_test_data_clicked(self):
         rospy.loginfo("Save test data button pressed")
         if not self.location_input.text():
-            rospy.logerr("Location Input is Empty")
             QMessageBox.warning(self, "Location Input Empty", "Please type a location")
             return
 
+        if not self._timeline.is_publishing(self.image_topic_combo_box.currentText()):
+            QMessageBox.warning(self, "Image Not Publishing", "Please publish a image topic!")
+            return
+
+        if not self._timeline.is_publishing(self.cloud_topic_combo_box.currentText()):
+            QMessageBox.warning(self, "Cloud Not Publishing", "Please publish a cloud topic!")
+            return
+
         location_text = self.location_input.text()
+        label_orientation = self.label_orientation_combo_box.currentText()
+
+
 
     def _set_status_text(self, text):
         if text:

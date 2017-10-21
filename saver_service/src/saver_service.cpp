@@ -33,13 +33,10 @@
 struct MetadataData
 {
   std::string file_name;
-
   std::string image_file_name;
   std::string image_frame_id;
-
   std::string cloud_file_name;
   std::string cloud_frame_id;
-
   std::string location;
   std::string label_orientation;
 };

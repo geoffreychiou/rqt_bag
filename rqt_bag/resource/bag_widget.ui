@@ -280,7 +280,156 @@
        </property>
       </widget>
      </item>
+     <!-- New Stuff -->
      <item>
+      <widget class="QLabel" name="location_label">
+       <property name="text">
+        <string> Location: </string>
+       </property>
+      </widget>
+     </item>
+
+     <item>
+      <widget class="QLineEdit" name="location_input">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>           
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>       
+      </widget>
+     </item>
+
+     <item>
+      <widget class="QLabel" name="image_topic_label">
+       <property name="text">
+        <string> Image Topic: </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+
+      <widget class="QComboBox" name="image_topic_combo_box">
+       <property name="minimumSize">
+        <size>
+         <width>200</width>
+         <height>0</height>
+        </size>
+       </property>          
+       <property name="maximumSize">
+        <size>
+         <width>200</width>
+         <height>16777215</height>
+        </size>
+       </property>             
+      </widget>
+     </item>
+
+     <item>
+      <widget class="QLabel" name="cloud_topic_label">
+       <property name="text">
+        <string> Cloud Topic: </string>
+       </property>
+      </widget>
+     </item>
+
+     <item>
+      <widget class="QComboBox" name="cloud_topic_combo_box">
+       <property name="minimumSize">
+        <size>
+         <width>200</width>
+         <height>0</height>
+        </size>
+       </property>          
+       <property name="maximumSize">
+        <size>
+         <width>200</width>
+         <height>16777215</height>
+        </size>
+       </property>         
+      </widget>      
+     </item>  
+
+     <item>
+      <widget class="QLabel" name="label_orientation_label_label">
+       <property name="text">
+        <string> Label: </string>
+       </property>
+      </widget>
+     </item>
+
+     <item>
+      <widget class="QComboBox" name="label_orientation_combo_box">
+       <property name="geometry">
+        <rect>
+         <x>70</x>
+         <y>120</y>
+         <width>100</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <item>
+        <property name="text">
+         <string>None</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Label Up</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Label Down</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+
+     <item>
+      <widget class="QPushButton" name="save_test_data_button">
+       <property name="toolTip">
+        <string>Save Test Data Point</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+
+     <item>
+      <widget class="Line" name="line_4">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+     </item>     
+     <item>
+     <!-- End New Stuff -->
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>

@@ -2,5 +2,5 @@
 <launch>
   <arg name="bag" default="" doc="bag file to load"/>
   <node name="rqt_bag" pkg="rqt_bag" type="rqt_bag"
-    args="$(arg bag)"/>
+    args="$(arg bag)" output="screen"/>
 </launch>

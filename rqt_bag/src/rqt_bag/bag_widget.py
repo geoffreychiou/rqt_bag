@@ -267,6 +267,9 @@ class BagWidget(QWidget):
         if filename[0] != '':
             self.load_bag(filename[0])
 
+            # Automatically update the combo boxes on loadfile
+            self.update_topic_combo_boxes()
+
     def load_bag(self, filename):
         # qInfo("Loading '%s'..." % filename)
         rospy.loginfo("Loading '%s' ..." % filename)
@@ -315,11 +318,26 @@ class BagWidget(QWidget):
         if filename[0] != '':
             self._timeline.copy_region_to_bag(filename[0])
 
-    def update_topic_combo_box(self):
-        print("hello world")
+    def update_topic_combo_boxes(self):
+        # Get topic names
+        topics = self._timeline._get_topics_by_datatype()
+
+        # Clear combo boxes
+        self.cloud_topic_combo_box.clear()
+        self.image_topic_combo_box.clear()
+
+        # Add to the combo boxes
+        for topic_type, topic_names in topics.items():
+            if topic_type == 'sensor_msgs/Image':
+                for topic_name in topic_names:
+                    self.image_topic_combo_box.addItem(topic_name)
+            elif topic_type == 'sensor_msgs/PointCloud2':
+                for topic_name in topic_names:
+                    self.cloud_topic_combo_box.addItem(topic_name)
 
     def _handle_refresh_clicked(self):
         rospy.loginfo("Refresh button pressed")
+        self.update_topic_combo_boxes()
 
     def _handle_save_test_data_clicked(self):
         rospy.loginfo("Save test data button pressed")

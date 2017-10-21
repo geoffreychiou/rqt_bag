@@ -15,13 +15,9 @@ find_package(Boost REQUIRED COMPONENTS signals thread)
 
 find_package(OpenCV REQUIRED)
 
-catkin_package(
-  CATKIN_DEPENDS 
-  roscpp 
-  pcl_ros 
-  rosconsole
-  DEPENDS 
-  opencv 
+add_service_files(
+  FILES
+  BollesTestData.srv
 )
 
 generate_messages(
@@ -30,9 +26,13 @@ generate_messages(
   sensor_msgs
 )
 
-add_service_files(
-  FILES
-  BollesDataSaver.srv
+catkin_package(
+  CATKIN_DEPENDS 
+  roscpp 
+  pcl_ros 
+  rosconsole
+  DEPENDS 
+  OpenCV 
 )
 
 include_directories(${Boost_INCLUDE_DIRS}
@@ -44,10 +44,6 @@ include_directories(${Boost_INCLUDE_DIRS}
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
-find_package(GTK2)
-add_definitions(-DHAVE_GTK)
-include_directories(${GTK2_INCLUDE_DIRS})
-
 add_executable(${PROJECT_NAME} src/saver_service.cpp)
 
 add_dependencies(${PROJECT_NAME} 
@@ -57,8 +53,6 @@ add_dependencies(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME} 
   ${catkin_LIBRARIES}
-  ${GTK_LIBRARIES}
-  ${GTK2_LIBRARIES}
   ${OpenCV_LIBRARIES}
   ${Boost_LIBRARIES}
   yaml-cpp

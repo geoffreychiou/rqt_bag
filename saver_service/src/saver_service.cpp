@@ -180,7 +180,7 @@ bool saveSrv(saver_service::BollesTestData::Request &req,
     cv_ptr = cv_bridge::toCvCopy(req.image);
     save_data.image_timestamp = req.image.header.stamp;
     save_data.image_frame_id = req.image.header.frame_id;
-    save_data.image = cv_ptr->image;    
+    cv::cvtColor(cv_ptr->image, save_data.image, CV_RGB2BGR);
   }
   catch (cv_bridge::Exception &e) 
   {

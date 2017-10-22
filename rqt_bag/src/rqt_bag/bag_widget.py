@@ -46,6 +46,8 @@ from rqt_bag import bag_helper
 from .bag_timeline import BagTimeline
 from .topic_selection import TopicSelection
 
+from saver_service.srv import BollesTestData
+
 class BagGraphicsView(QGraphicsView):
     def __init__(self, parent=None):
         super(BagGraphicsView, self).__init__()
@@ -352,10 +354,27 @@ class BagWidget(QWidget):
             QMessageBox.warning(self, "Cloud Not Publishing", "Please publish a cloud topic!")
             return
 
-        location_text = self.location_input.text()
+        location = self.location_input.text()
         label_orientation = self.label_orientation_combo_box.currentText()
 
+        msg_data = self._timeline.get_msg_data()
 
+        for topic in msg_data:
+            if topic == self.image_topic_combo_box.currentText():
+                image = msg_data[topic]
+            elif topic == self.cloud_topic_combo_box.currentText():
+                cloud = msg_data[topic]
+
+        # Service stuff
+        if not cloud or not image:
+            return
+
+        rospy.wait_for_service('bolles_saver_service')
+        try:
+            bolles_saver_service = rospy.ServiceProxy('bolles_saver_service', BollesTestData)
+            response = bolles_saver_service(cloud, image, location, label_orientation)
+        except rospy.ServiceException, e:
+            rospy.logerr("Service call failed")
 
     def _set_status_text(self, text):
         if text:

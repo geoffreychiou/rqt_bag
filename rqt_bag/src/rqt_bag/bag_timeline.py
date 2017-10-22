@@ -109,6 +109,9 @@ class BagTimeline(QGraphicsScene):
         self.background_progress = 0
         self.__closed = False
 
+        # For bolles
+        self._bolles_topics_and_messages = {}
+
     def get_context(self):
         """
         :returns: the ROS_GUI context, 'PluginContext'
@@ -832,3 +835,10 @@ class BagTimeline(QGraphicsScene):
 
     def navigate_end(self):
         self._timeline_frame.playhead = self._timeline_frame.play_region[1]
+
+    def set_msg_data(self, bag, msg_data):
+        topic, msg, clock = msg_data
+        self._bolles_topics_and_messages[topic] = msg
+
+    def get_msg_data(self):
+        return self._bolles_topics_and_messages

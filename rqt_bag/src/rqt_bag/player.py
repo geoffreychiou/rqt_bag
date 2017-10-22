@@ -145,6 +145,7 @@ class Player(QObject):
         bag, msg_data = event.data
         if msg_data:
             self.message_viewed(bag, msg_data)
+            self.timeline.set_msg_data(bag, msg_data)
         else:
             self.message_cleared()
         return True
